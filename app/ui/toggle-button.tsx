@@ -12,7 +12,7 @@ export function ModeToggle() {
 
   return (
     <Button
-      variant="primary"
+      variant="shadow"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className="flex items-center gap-2 relative"
     >
