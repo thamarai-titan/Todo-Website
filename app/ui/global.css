@@ -7,6 +7,7 @@
   --btn-color: #0A0A0A;
   --btn-text: #ffffff;
   --text-color: #0a0a0a;
+--sidebar: #FAFAFA;
 }
 
 .dark {
@@ -14,4 +15,6 @@
   --btn-color: #ffffff;
   --btn-text: #0a0a0a;
   --text-color: #ffffff;
+  --sidebar: #171717;
+
 }
