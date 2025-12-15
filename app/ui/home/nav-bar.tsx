@@ -5,7 +5,7 @@ import Button from "../components/button"
 export default function Nav(){
     return (
         <nav className="sticky top-0 z-50">
-            <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-7 sm:px-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-5 sm:px-6 ">
                 <div className="text-muted-foreground flex flex-1 items-center gap-8 font-medium md:justify-start lg:gap-16">
                     <Link href={"/"}>
                         <Logo/>
@@ -16,11 +16,11 @@ export default function Nav(){
                     <ModeToggle/>
                 </div>
                 <div className="flex items-center justify-betwee lg:gap-10 gap-6 font-medium">
-                    <Link href={"/sign-in"}>
+                    <Link href={"/auth/sign-in"}>
                         Sign-In
                     </Link>
-                    <Link href={"/sign-up"}>
-                    <Button variant="primary" className="border-gray-600 hover:bg-gray-200">Get Started</Button>
+                    <Link href={"/auth/sign-up"}>
+                    <Button variant="primary" className="hover:bg-zinc-400">Get Started</Button>
                     </Link>
                 </div>
                 
