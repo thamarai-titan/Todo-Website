@@ -5,6 +5,7 @@ import Sidebar from "@/app/ui/sidebar"
 import Nav from "@/app/ui/home/nav-bar"
 import { useState } from "react";
 import CreateTodo from "@/app/ui/todo/create-todo";
+import TodoDisplay from "@/app/ui/todo/todo-display";
 
 export default function TodoHome(){
     return (
@@ -19,6 +20,7 @@ export default function TodoHome(){
                             Start Creating your Todo's here
                             <div className="py-4 md:py-6">
                                 <CreateTodo/>
+                                <TodoDisplay/>
                             </div>
                         </div>
                     </div>
