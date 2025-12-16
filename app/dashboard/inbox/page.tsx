@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import Sidebar from "@/app/ui/sidebar"
 import Nav from "@/app/ui/home/nav-bar"
 import { useState } from "react";
+import CreateTodo from "@/app/ui/todo/create-todo";
 
 export default function TodoHome(){
     return (
@@ -16,6 +17,9 @@ export default function TodoHome(){
                     <div>
                         <div className=" md:text-xl font-medium">
                             Start Creating your Todo's here
+                            <div className="py-4 md:py-6">
+                                <CreateTodo/>
+                            </div>
                         </div>
                     </div>
                 </main>
