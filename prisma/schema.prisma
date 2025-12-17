@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Todo {
+  id          Int       @id @default(autoincrement())
+  user_id     String    @db.Uuid
+  title       String?   @db.VarChar
+  description String?   @db.VarChar
+  created_at  DateTime? @db.Date
+  update_id   DateTime? @db.Date
+  completed   Boolean?
+  User        User      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_id")
+}
+
+model User {
+  id              String    @id @db.Uuid
+  email           String?   @unique @db.VarChar
+  hashed_password String?   @db.VarChar
+  created_at      DateTime? @db.Date
+  Todo            Todo[]
+}
