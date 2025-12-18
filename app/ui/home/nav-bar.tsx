@@ -5,9 +5,13 @@ import { ModeToggle } from "../toggle-button"
 import Button from "../components/button"
 import { Menu } from "lucide-react"
 import { useState } from "react"
-import Sidebar from "../sidebar"
+import { verifySession } from "@/app/lib/dal"
 
-export default function Nav() {
+
+export default async function Nav() {
+
+  const session = await verifySession()
+  const userRole = session?.userId
     const [open, setOpen] = useState<boolean>(false);
     return (
         <nav className="sticky top-0 z-50">

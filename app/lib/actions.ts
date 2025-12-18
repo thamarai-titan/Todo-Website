@@ -1,13 +1,29 @@
-"use server";
-
+"use server"
 import prisma from "./prisma";
 import bcrypt from "bcryptjs";
 import {v4} from "uuid";
+import { FormState, SignupFormSchema } from "./definitions";
+import { createSession } from '@/app/lib/session'
+import { redirect } from "next/navigation";
+
+import { deleteSession } from '@/app/lib/session'
 
 
-export async function SignUp(formData: FormData){
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+export async function SignUp(state:FormState, formData: FormData){
+
+    const validatedFields = SignupFormSchema.safeParse({
+    email: formData.get('email'),
+    password: formData.get('password'),
+  })
+  console.log(validatedFields);
+    if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
+    const {email,password} = validatedFields.data
+    const hashed_password = await bcrypt.hash(password,10)
     const id = v4()
 ;
     try {
@@ -15,11 +31,21 @@ export async function SignUp(formData: FormData){
             data: {
                 id:id,
                 email,
-                hashed_password:password
+                hashed_password:hashed_password
             }
         })
+        
     } catch (error) {
         console.log(error)
     }
     
+    await createSession(id)
+  // 5. Redirect user
+    redirect('/dashboard/inbox')
+}
+
+ 
+export async function logout() {
+  await deleteSession()
+  redirect('/login')
 }
