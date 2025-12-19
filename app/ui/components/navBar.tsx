@@ -3,14 +3,15 @@ import Link from "next/link"
 import Logo from "../logo"
 import { ModeToggle } from "../toggle-button"
 import Button from "../components/button"
-import { Menu } from "lucide-react"
+import { Divide, Menu } from "lucide-react"
 import { useState } from "react"
-
+import { logout } from "@/app/lib/actions"
 
 
 export default function NavBar({isAuth}:{isAuth:boolean}) {
 
     const [open, setOpen] = useState<boolean>(false);
+    console.log(isAuth)
     
     return (
         <nav className="sticky top-0 z-50">
@@ -25,12 +26,18 @@ export default function NavBar({isAuth}:{isAuth:boolean}) {
                     <ModeToggle />
                 </div>
                 <div className="flex items-center justify-betwee lg:gap-10 gap-6 font-medium">
-                    <Link href={"/auth/sign-in"}>
+                    {isAuth ? (<div>
+                        <Button variant="primary" onClick={()=>logout()}>Logout</Button>
+                    </div>) : (
+                        <div className="flex items-center justify-betwee lg:gap-10 gap-6 font-medium">
+                        <Link href={"/auth/sign-in"}>
                         Sign-In
-                    </Link>
-                    <Link href={"/auth/sign-up"}>
+                        </Link>
+                        <Link href={"/auth/sign-up"}>
                         <Button variant="primary" className="hover:bg-zinc-400">Get Started</Button>
-                    </Link>
+                        </Link>
+                    </div>
+                )}
                 </div>
                 <div className="md:hidden block" onClick={()=>setOpen(!open)}>
                     <Menu />

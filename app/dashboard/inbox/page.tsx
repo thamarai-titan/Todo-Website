@@ -11,7 +11,6 @@ import Nav from "@/app/ui/home/nav-bar";
 export default function TodoHome(){
     return (
        <div className="min-h-screen">
-        <Nav/>
         <div className="mx-auto max-w-7xl">
             <div className="relative flex">
                 <Sidebar/>
