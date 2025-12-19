@@ -3,10 +3,10 @@ import prisma from "./prisma";
 import bcrypt from "bcryptjs";
 import {v4} from "uuid";
 import { FormState, SignupFormSchema } from "./definitions";
-import { createSession } from '@/app/lib/session'
+import { createSession } from '@/app/lib/session.server'
 import { redirect } from "next/navigation";
 
-import { deleteSession } from '@/app/lib/session'
+import { deleteSession } from '@/app/lib/session.server'
 
 
 export async function SignUp(state:FormState, formData: FormData){

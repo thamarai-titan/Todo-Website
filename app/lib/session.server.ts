@@ -1,4 +1,4 @@
-import 'server-only'
+"use server"
 import { SignJWT, jwtVerify } from 'jose'
 import { SessionPayload } from '@/app/lib/definitions'
 import { cookies } from 'next/headers'
@@ -59,6 +59,23 @@ export async function updateSession() {
     path: '/',
   })
 }
+
+export async function getSession(){
+  const cookie = (await cookies()).get('session')?.value
+
+  if(!cookie) return null;
+
+  const payload = await decrypt(cookie)
+  if(!payload?.userId) return null;
+
+  return {
+    userId: payload.userId,
+    email: payload.email ?? null
+  }
+
+}
+
+
 
 export async function deleteSession() {
   const cookieStore = await cookies()

@@ -9,12 +9,13 @@ export default function SignUpForm() {
     const labelStyle = "pb-3 text-md font-medium";
     const InputStyle = "rounded border border-zinc-700 py-1 px-2 mb-6";
     return (
-        <form action={action} className="border border-zinc-800 flex flex-col rounded-2xl p-6 bg-[#171717]" >
+        <form action={action} className="border border-zinc-800 flex flex-col rounded-2xl p-6 bg-[#171717] text-white" >
             <h2 className="text-[16px] font-semibold pb-3">Create a Account</h2>
             <p className="text-sm pb-4">Enter your information below to create your account</p>
             <label htmlFor="" className={`${labelStyle}`}>Email</label>
             <input type="text" placeholder="John Doe" className={`${InputStyle}`} name="email"/>
             {state?.errors?.email && <p>{state.errors.email}</p>}
+            <label htmlFor="" className={`${labelStyle}`}>Password</label>
             <input type="text" placeholder="" className={`${InputStyle}`} name="password"/>
             {state?.errors?.password && (
         <div>

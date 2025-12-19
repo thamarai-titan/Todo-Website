@@ -1,11 +1,12 @@
 "use client";
 
-import { Menu } from "lucide-react";
+
 import Sidebar from "@/app/ui/sidebar"
-import Nav from "@/app/ui/home/nav-bar"
-import { useState } from "react";
+import NavBar from "@/app/ui/components/navBar";
 import CreateTodo from "@/app/ui/todo/create-todo";
 import TodoDisplay from "@/app/ui/todo/todo-display";
+import Nav from "@/app/ui/home/nav-bar";
+
 
 export default function TodoHome(){
     return (
