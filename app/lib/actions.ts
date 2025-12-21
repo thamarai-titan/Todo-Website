@@ -2,12 +2,12 @@
 import prisma from "./prisma";
 import bcrypt from "bcryptjs";
 import {v4} from "uuid";
-import { FormState, SignupFormSchema } from "./definitions";
-import { createSession } from '@/app/lib/session.server'
+import { FormState, SignupFormSchema, TodoState } from "./definitions";
+import { createSession, getUserId } from '@/app/lib/session.server'
 import { redirect } from "next/navigation";
-
 import { deleteSession } from '@/app/lib/session.server'
-import { errors } from "jose";
+import { error } from "console";
+import { success } from "zod";
 
 
 export async function SignUp(state:FormState, formData: FormData){
@@ -92,4 +92,34 @@ export async function SignIn(state:FormState, formData: FormData){
 export async function logout() {
   await deleteSession()
   redirect('/')
+}
+
+export async function addTodo(state:TodoState,formData: FormData){
+    const userId = await getUserId()
+
+    if(!userId) {
+      return { error: "User cannot exsist"   }
+    }
+
+    const title = formData.get("title")?.toString().trim()
+    const description = formData.get("description")?.toString().trim()
+
+    if(!title){
+      return {
+        errors:{
+        title: ["title required"]
+      }
+    }
+    }
+
+    await prisma.todo.create({
+      data: {
+        title,
+        description,
+        user_id: userId,
+        completed: false
+      }
+    });
+
+    return {success:true}
 }

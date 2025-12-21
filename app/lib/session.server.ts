@@ -1,13 +1,12 @@
 "use server"
-import { SignJWT, jwtVerify } from 'jose'
-import { SessionPayload } from '@/app/lib/definitions'
+import { SignJWT, jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
 
  
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
  
-export async function encrypt(payload: SessionPayload) {
+export async function encrypt(payload: JWTPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -80,4 +79,15 @@ export async function getSession(){
 export async function deleteSession() {
   const cookieStore = await cookies()
   cookieStore.delete('session')
+}
+
+export async function getUserId(){
+  const cookie = (await cookies()).get("session")?.value
+  const payload = await decrypt(cookie)
+
+  if (!payload || typeof payload.userId !== "string") {
+    return null;
+  }
+
+  return payload.userId
 }

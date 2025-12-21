@@ -32,4 +32,15 @@ export type FormState =
       }
       message?: string
     }
-  | undefined
+  | undefined 
+
+
+  export type TodoState = {
+    success?: boolean;
+    error?: string;
+    errors?:{
+      title?: string[];
+      description?: string[];
+    }
+  } | undefined
+  
