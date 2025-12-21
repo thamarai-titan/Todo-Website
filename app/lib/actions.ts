@@ -7,6 +7,7 @@ import { createSession } from '@/app/lib/session.server'
 import { redirect } from "next/navigation";
 
 import { deleteSession } from '@/app/lib/session.server'
+import { errors } from "jose";
 
 
 export async function SignUp(state:FormState, formData: FormData){
@@ -15,7 +16,7 @@ export async function SignUp(state:FormState, formData: FormData){
     email: formData.get('email'),
     password: formData.get('password'),
   })
-  console.log(validatedFields);
+
     if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -44,6 +45,49 @@ export async function SignUp(state:FormState, formData: FormData){
     redirect('/dashboard/inbox')
 }
 
+
+export async function SignIn(state:FormState, formData: FormData){
+  const validatedFields = SignupFormSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password")
+  })
+
+  if(!validatedFields.success){
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
+  const {email,password} = validatedFields.data
+
+  try {
+    const user = await prisma.user.findUnique({
+      where:{
+        email:email,
+      }
+    })
+  
+    if(!user){
+      return {error: "user not found"}
+    }
+    const db_password = user.hashed_password
+    const isValidPass = await bcrypt.compare(password,db_password)
+
+    if(!isValidPass){
+      return {error: "the password is incorrect"}
+    }
+    await createSession(user.id)
+    
+
+  } catch (error) {
+    console.log(error)
+  }
+
+  
+  redirect('/dashboard/inbox')
+
+
+}
  
 export async function logout() {
   await deleteSession()

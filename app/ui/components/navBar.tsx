@@ -3,7 +3,7 @@ import Link from "next/link"
 import Logo from "../logo"
 import { ModeToggle } from "../toggle-button"
 import Button from "../components/button"
-import { Divide, Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import { logout } from "@/app/lib/actions"
 
@@ -11,7 +11,6 @@ import { logout } from "@/app/lib/actions"
 export default function NavBar({isAuth}:{isAuth:boolean}) {
 
     const [open, setOpen] = useState<boolean>(false);
-    console.log(isAuth)
     
     return (
         <nav className="sticky top-0 z-50">
@@ -40,7 +39,7 @@ export default function NavBar({isAuth}:{isAuth:boolean}) {
                 )}
                 </div>
                 <div className="md:hidden block" onClick={()=>setOpen(!open)}>
-                    <Menu />
+                    {open ? (<X />) : (<Menu/>)}
                 </div>
             </div>
             {open && (

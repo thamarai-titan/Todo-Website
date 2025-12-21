@@ -25,7 +25,7 @@ export default async function proxy(req: NextRequest) {
   if (
     isPublicRoute &&
     session?.userId &&
-    !req.nextUrl.pathname.startsWith('/dashboard/inbox')
+    !req.nextUrl.pathname.startsWith('/dashboard')
   ) {
     return NextResponse.redirect(new URL('/dashboard/inbox', req.nextUrl))
   }

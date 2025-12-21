@@ -1,3 +1,5 @@
+import * as z from 'zod'
+
 export type User = {
     id:string,
     email:string,
@@ -8,12 +10,6 @@ export type SignInForm = {
     email:string,
     password:string
 }
-
-export type SessionPayload = {
-    
-}
-
-import * as z from 'zod'
  
 export const SignupFormSchema = z.object({
   email: z.email({ error: 'Please enter a valid email.' }).trim(),
