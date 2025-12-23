@@ -1,7 +1,13 @@
 
 import { CircleCheckBig, SquarePen, Trash } from "lucide-react"
-import Button from "../components/button"
+import { DisplayTodo } from "@/app/lib/actions"
+import { useEffect } from "react"
+import { Cossette_Texte } from "next/font/google"
 export default function TodoDisplay(){
+    useEffect(()=>{
+        const data = DisplayTodo()
+    },[])
+    console.log(data)
     return (
         <div>
             <div className="py-4">

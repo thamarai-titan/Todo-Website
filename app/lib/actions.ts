@@ -98,7 +98,7 @@ export async function addTodo(state:TodoState,formData: FormData){
     const userId = await getUserId()
 
     if(!userId) {
-      return { error: "User cannot exsist"   }
+      return { error: "User cannot exsist" }
     }
 
     const title = formData.get("title")?.toString().trim()
@@ -122,4 +122,25 @@ export async function addTodo(state:TodoState,formData: FormData){
     });
 
     return {success:true}
+}
+
+export async function DisplayTodo(){
+  const userId = await getUserId();
+
+  if(!userId){
+    throw new Error("there is no user available")
+  }
+  try {
+    const data = await prisma.todo.findMany({
+      where:{
+        user_id:userId
+      }
+    })
+
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+
+  
 }

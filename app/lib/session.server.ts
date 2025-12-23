@@ -86,7 +86,7 @@ export async function getUserId(){
   const payload = await decrypt(cookie)
 
   if (!payload || typeof payload.userId !== "string") {
-    return null;
+    throw new Error("no user available")
   }
 
   return payload.userId
