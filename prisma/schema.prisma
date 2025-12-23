@@ -13,7 +13,7 @@ model Todo {
   title       String?   @db.VarChar
   description String?   @db.VarChar
   created_at  DateTime? @default(now())
-  update_id   DateTime? @default(now())
+  updated_at   DateTime? @default(now())
   completed   Boolean?
   User        User      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_id")
 }
