@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Button from "../components/button";
 import { addTodo } from "@/app/lib/actions";
-import Toast from "../components/Toast";
+
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -75,10 +75,6 @@ export default function CreateTodo() {
             <SubmitButton />
           </div>
         </form>
-      )}
-
-      {state?.success && (
-        <Toast/>
       )}
     </div>
   );

@@ -6,8 +6,8 @@ import { FormState, SignupFormSchema, TodoState } from "./definitions";
 import { createSession, getUserId } from '@/app/lib/session.server'
 import { redirect } from "next/navigation";
 import { deleteSession } from '@/app/lib/session.server'
-import { error } from "console";
-import { success } from "zod";
+
+
 
 
 export async function SignUp(state:FormState, formData: FormData){
@@ -124,23 +124,3 @@ export async function addTodo(state:TodoState,formData: FormData){
     return {success:true}
 }
 
-export async function DisplayTodo(){
-  const userId = await getUserId();
-
-  if(!userId){
-    throw new Error("there is no user available")
-  }
-  try {
-    const data = await prisma.todo.findMany({
-      where:{
-        user_id:userId
-      }
-    })
-
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-
-  
-}

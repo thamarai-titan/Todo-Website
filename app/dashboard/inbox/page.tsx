@@ -1,11 +1,8 @@
-"use client";
 
 
 import Sidebar from "@/app/ui/sidebar"
-import NavBar from "@/app/ui/components/navBar";
 import CreateTodo from "@/app/ui/todo/create-todo";
-import TodoDisplay from "@/app/ui/todo/todo-display";
-import Nav from "@/app/ui/home/nav-bar";
+import TodoPage from "@/app/ui/todo/todo-client";
 
 
 export default function TodoHome(){
@@ -20,7 +17,7 @@ export default function TodoHome(){
                             Start Creating your Todo's here
                             <div className="py-4 md:py-6">
                                 <CreateTodo/>
-                                <TodoDisplay/>
+                                <TodoPage/>
                             </div>
                         </div>
                     </div>
