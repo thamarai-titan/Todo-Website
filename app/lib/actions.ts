@@ -142,19 +142,27 @@ export async function deleteTodo(todoId: number) {
   revalidatePath('/dashboard/index')
 }
 
-export async function updateTodo(todoId:number,data: {title?:string,description?:string}){
+export async function updateTodo(prevState:any,formData: FormData ): Promise<TodoState>{
   const userId = await getUserId();
   if(!userId) throw Error("Unauthorized")
 
+  const todoId = formData.get("todoid")
+  const title = formData.get("title") as string
+  const description = formData.get("description") as string
+
   await prisma.todo.update({
     where:{
-      id:todoId,
+      id:Number(todoId),
       user_id:userId
     },
-    data
+    data:{
+      title,
+      description
+    }
   })
 
   revalidatePath("/dashboard/index")
+   return { success: true }; 
   
 }
 
