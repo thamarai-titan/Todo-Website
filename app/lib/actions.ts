@@ -6,6 +6,8 @@ import { FormState, SignupFormSchema, TodoState } from "./definitions";
 import { createSession, getUserId } from '@/app/lib/session.server'
 import { redirect } from "next/navigation";
 import { deleteSession } from '@/app/lib/session.server'
+import { revalidatePath } from "next/cache";
+import { todo } from "node:test";
 
 
 
@@ -121,6 +123,38 @@ export async function addTodo(state:TodoState,formData: FormData){
       }
     });
 
+    revalidatePath("/dashboard/inbox");
+
     return {success:true}
+}
+
+export async function deleteTodo(todoId: number) {
+  const userId = await getUserId();
+  if(!userId) throw Error("Unauthorized")
+
+  await prisma.todo.delete({
+    where:{
+      id:todoId,
+      user_id:userId
+    }
+  })
+
+  revalidatePath('/dashboard/index')
+}
+
+export async function updateTodo(todoId:number,data: {title?:string,description?:string}){
+  const userId = await getUserId();
+  if(!userId) throw Error("Unauthorized")
+
+  await prisma.todo.update({
+    where:{
+      id:todoId,
+      user_id:userId
+    },
+    data
+  })
+
+  revalidatePath("/dashboard/index")
+  
 }
 

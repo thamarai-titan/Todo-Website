@@ -1,5 +1,3 @@
-
-
 import Sidebar from "@/app/ui/sidebar"
 import CreateTodo from "@/app/ui/todo/create-todo";
 import TodoPage from "@/app/ui/todo/todo-client";

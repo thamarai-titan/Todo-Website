@@ -18,7 +18,7 @@ function SubmitButton() {
 
 export default function CreateTodo() {
   const [open, setOpen] = useState(false);
-  const [state, action, reset] = useActionState(addTodo,undefined);
+  const [state, action] = useActionState(addTodo,undefined);
 
 
   useEffect(() => {
